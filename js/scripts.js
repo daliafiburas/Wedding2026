@@ -207,6 +207,45 @@ $(document).ready(function () {
 
     $('#add-to-cal').html(myCalendar);
 
+     /********************** SONG **********************/
+     $('#song-form').on('submit', function (e) {
+        e.preventDefault();
+
+        var data = {
+            titolo: $('#title').val(),
+            artista: $('#artist').val(),
+            note: $('#note').val(),
+            persona: $('#person').val()
+        };
+    
+        console.info("Dati inviati:", data); // Log nel browser per debug
+    
+        $('#alert-wrapper').html(alert_markup('info', '<strong>Un attimo!</strong> Stiamo salvando i vostri dati.'));
+    
+     
+
+        
+        $.post('https://script.google.com/macros/s/AKfycbyYG5nXgfKMd6cquD2s_NmdDhQjTzhFUjqwLjEWtt9cOgrm5RyJTf5rI9O2D3F7WIFapA/exec', data)
+            .done(function (response) {
+                console.info("Risposta dal server:", response);
+                if (response.result === "error") {
+                    $('#alert-wrapper').html(alert_markup('danger', response.message));
+                } else {
+                    $('#alert-wrapper').html('');
+                    $('#song-modal').modal('show');
+                }
+            })
+            .fail(function (error) {
+                console.info("Errore nella richiesta:", error);
+                $('#alert-wrapper').html(alert_markup('danger', '<strong>Ci dispiace!</strong> Ci sono errori con il server.'));
+            });
+    });
+    
+    // Call initMaps after the Google Maps API is loaded
+    window.initMaps = initMaps; // Expose the function to the global scope
+
+});
+
 
     /********************** RSVP **********************/
     $('#rsvp-form').on('submit', function (e) {
@@ -249,7 +288,6 @@ $(document).ready(function () {
     // Call initMaps after the Google Maps API is loaded
     window.initMaps = initMaps; // Expose the function to the global scope
 
-});
 
 /********************** Extras **********************/
 
