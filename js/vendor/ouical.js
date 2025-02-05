@@ -2,7 +2,11 @@
     var MS_IN_MINUTES = 60 * 1000;
 
     var formatTime = function(date) {
-        return date.toISOString().replace(/-|:|\.\d+/g, '');
+        if (!date || isNaN(new Date(date).getTime())) {
+            console.error("Data non valida in formatTime:", date);
+            return "";  // Ritorna una stringa vuota invece di generare un errore
+        }
+        return new Date(date).toISOString().replace(/-|:|\.\d+/g, '');
     };
 
     var calculateEndTime = function(event) {

@@ -187,14 +187,14 @@ $(document).ready(function () {
             title: "Matrimonio di Saul e Dalia",
 
             // Event start date
-            start: new Date('Jen 29, 2026 20:00'),
+            start: new Date('Jan 29, 2026 20:00'),
 
             // Event duration (IN MINUTES)
-            // duration: 120,
+            duration: 120,
 
             // You can also choose to set an end time
             // If an end time is set, this will take precedence over duration
-            end: new Date('Nov 29, 2017 00:00'),
+            end: new Date('Jan 30, 2026 06:00'),
 
             // Event Address
             location: "Daniłowicza 10, 32-020 Wieliczka, Polonia",
@@ -211,30 +211,43 @@ $(document).ready(function () {
     /********************** RSVP **********************/
     $('#rsvp-form').on('submit', function (e) {
         e.preventDefault();
-        var data = $(this).serialize();
 
-        $('#alert-wrapper').html(alert_markup('info', '<strong>Just a sec!</strong> We are saving your details.'));
+        var data = {
+            nome: $('#name').val(),
+            email: $('#email').val(),
+            numero_ospiti: $('#numero_ospiti').val(),
+            note: $('#note').val()
+        };
 
-        if (MD5($('#invite_code').val()) !== 'b0e53b10c1f55ede516b240036b88f40'
-            && MD5($('#invite_code').val()) !== '2ac7f43695eb0479d5846bb38eec59cc') {
-            $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> Your invite code is incorrect.'));
-        } else {
-            $.post('https://script.google.com/macros/s/AKfycbyo0rEknln8LedEP3bkONsfOh776IR5lFidLhJFQ6jdvRiH4dKvHZmtoIybvnxpxYr2cA/exec', data)
-                .done(function (data) {
-                    console.log(data);
-                    if (data.result === "error") {
-                        $('#alert-wrapper').html(alert_markup('danger', data.message));
-                    } else {
-                        $('#alert-wrapper').html('');
-                        $('#rsvp-modal').modal('show');
-                    }
-                })
-                .fail(function (data) {
-                    console.log(data);
-                    $('#alert-wrapper').html(alert_markup('danger', '<strong>Sorry!</strong> There is some issue with the server. '));
-                });
+        if(data.numero_ospiti === ''){
+            data.numero_ospiti == '0'
         }
+    
+        console.info("Dati inviati:", data); // Log nel browser per debug
+    
+        $('#alert-wrapper').html(alert_markup('info', '<strong>Un attimo!</strong> Stiamo salvando i vostri dati.'));
+    
+     
+
+        
+        $.post('https://script.google.com/macros/s/AKfycbw6q5O_aQQzLGeGBBxQhjj-RiPqieAnDhKpYxF70ao7XPa7i44eDd4TYY7nppNxJlZCIQ/exec', data)
+            .done(function (response) {
+                console.info("Risposta dal server:", response);
+                if (response.result === "error") {
+                    $('#alert-wrapper').html(alert_markup('danger', response.message));
+                } else {
+                    $('#alert-wrapper').html('');
+                    $('#rsvp-modal').modal('show');
+                }
+            })
+            .fail(function (error) {
+                console.info("Errore nella richiesta:", error);
+                $('#alert-wrapper').html(alert_markup('danger', '<strong>Ci dispiace!</strong> Ci sono errori con il server.'));
+            });
     });
+    
+    // Call initMaps after the Google Maps API is loaded
+    window.initMaps = initMaps; // Expose the function to the global scope
 
 });
 
@@ -242,35 +255,50 @@ $(document).ready(function () {
 
 // Google map
 function initMaps() {
-    // Posizioni (puoi cambiare le coordinate con quelle della tua chiesa e location)
-    var chiesaPos = { lat: 49.984155439043455, lng: 20.053046996584577 }; 
-    var locationPos = { lat: 49.989808634672414, lng: 20.050522611927573 }; 
-    // Inizializza la mappa per la Chiesa
-    var mapChiesa = new google.maps.Map(document.getElementById("map-chiesa"), {
-        center: chiesaPos,
-        zoom: 15
-    });
-    new google.maps.Marker({
-        position: chiesaPos,
-        map: mapChiesa,
-        title: "Chiesa"
-    });
+        // Positions (you can change the coordinates with those of your church and location)
+        var chiesaPos = { lat: 49.984155439043455, lng: 20.053046996584577 }; 
+        var locationPos = { lat: 49.989808634672414, lng: 20.050522611927573 }; 
+        
+        // Initialize the map for the Church
+        var mapChiesa = new google.maps.Map(document.getElementById("map-chiesa"), {
+            center: chiesaPos,
+            zoom: 15,
+            mapId: 'd46f77e1c99db8ad'
+        });
+        new google.maps.marker.AdvancedMarkerElement({
+            position: chiesaPos,
+            map: mapChiesa,
+            title: "Chiesa"
+        });
 
-    // Inizializza la mappa per la Location
-    var mapLocation = new google.maps.Map(document.getElementById("map-location"), {
-        center: locationPos,
-        zoom: 15
-    });
-    new google.maps.Marker({
-        position: locationPos,
-        map: mapLocation,
-        title: "Location"
-    });
-}
+        // Initialize the map for the Location
+        var mapLocation = new google.maps.Map(document.getElementById("map-location"), {
+            center: locationPos,
+            zoom: 15,
+            mapId: 'd46f77e1c99db8ad'
+        });
+        new google.maps.marker.AdvancedMarkerElement({ // Corrected the typo here
+            position: locationPos,
+            map: mapLocation,
+            title: "Location"
+        });
+    }
+
 // alert_markup
 function alert_markup(alert_type, msg) {
     return '<div class="alert alert-' + alert_type + '" role="alert">' + msg + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button></div>';
 }
+
+document.getElementById("btn-show-content").addEventListener("click", function () {
+    var content = document.getElementById("map-content");
+    if (content.style.display === "none") {
+        content.style.display = "block";
+        this.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Nascondi Info';
+    } else {
+        content.style.display = "none";
+        this.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info';
+    }
+});
 
 // MD5 Encoding
 var MD5 = function (string) {
