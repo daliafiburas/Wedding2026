@@ -436,7 +436,12 @@ var MD5 = function (string) {
     };
 
 
-    
+    function googleTranslateElementInit() {
+        new google.translate.TranslateElement(
+          { pageLanguage: 'it', includedLanguages: 'en,es,fr,de', layout: google.translate.TranslateElement.InlineLayout.SIMPLE },
+          'google_translate_element'
+        );
+      }
 
     function Utf8Encode(string) {
         string = string.replace(/\r\n/g, "\n");
