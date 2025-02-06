@@ -140,8 +140,8 @@
             function redirectBasedOnLanguage(language) {
               const currentPath = window.location.pathname;
               // Verifica se l'utente è già nella cartella corretta
-              if (!currentPath.startsWith(`/translate/${language}/index.html`)) {
-                window.location.href = `/translate/${language}/`;
+              if (!currentPath.startsWith(`/translate/${language}`)) {
+                window.location.href = `/translate/${language}/index.html`;
               }
             }
         
