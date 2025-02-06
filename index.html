@@ -130,8 +130,7 @@
                 'IT': 'it', // Italia
                 'US': 'en', // Stati Uniti
                 'ES': 'es', // Spagna
-                'FR': 'fr', // Francia
-                'DE': 'de', // Germania
+                'FR': 'pl', // Francia
                 // Aggiungi altre mappature qui
               };
               return countryToLanguage[countryCode] || 'en'; // Default a inglese
@@ -156,7 +155,7 @@
                   fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=it`)
                     .then(response => response.json())
                     .then(data => {
-                      const countryCode = data.countryCode; // Es. 'IT', 'US', 'ES'
+                      const countryCode = data.countryCode; 
                       const language = getLanguageFromCountryCode(countryCode);
                       redirectBasedOnLanguage(language);
                     })

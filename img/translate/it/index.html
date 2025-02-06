@@ -627,62 +627,6 @@
         };
     </script>
 
-<script>
-    // Funzione per mappare il codice paese alla lingua
-    function getLanguageFromCountryCode(countryCode) {
-      const countryToLanguage = {
-        'IT': 'it', // Italia
-        'US': 'en', // Stati Uniti
-        'GB': 'en', // Regno Unito
-        'ES': 'es', // Spagna
-        'FR': 'fr', // Francia
-        'DE': 'de', // Germania
-        // Aggiungi altre mappature qui
-      };
-      return countryToLanguage[countryCode] || 'en'; // Default a inglese
-    }
-  
-    // Funzione per reindirizzare l'utente in base alla lingua
-    function redirectBasedOnLanguage(language) {
-      const currentPath = window.location.pathname;
-      if (!currentPath.startsWith(`/${language}/`)) {
-        window.location.href = `/${language}/`;
-      }
-    }
-  
-    // Ottieni la posizione dell'utente e determina la lingua
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          // Usa BigDataCloud per ottenere il paese
-          fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=it`)
-            .then(response => response.json())
-            .then(data => {
-              const countryCode = data.countryCode; // Es. 'IT', 'US', 'ES'
-              const language = getLanguageFromCountryCode(countryCode);
-              redirectBasedOnLanguage(language);
-            })
-            .catch(() => {
-              console.log("Impossibile determinare la posizione. Usa la lingua di default.");
-            });
-        },
-        () => {
-          console.log("L'utente ha rifiutato la geolocalizzazione. Usa la lingua di default.");
-        }
-      );
-    } else {
-      console.log("Geolocalizzazione non supportata. Usa la lingua di default.");
-    }
-
-
-    document.getElementById('languageSelector').addEventListener('change', function() {
-    var selectedLanguage = this.value;
-    window.location.href = `/${selectedLanguage}/`;
-    });
-  </script>
-
 </body>
 
 </html>
