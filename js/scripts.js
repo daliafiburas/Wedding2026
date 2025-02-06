@@ -327,16 +327,28 @@ function alert_markup(alert_type, msg) {
     return '<div class="alert alert-' + alert_type + '" role="alert">' + msg + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button></div>';
 }
 
-document.getElementById("btn-show-content").addEventListener("click", function () {
+document.getElementById("btn-show-content-chiesa").addEventListener("click", function () {
     var content = document.getElementById("map-content");
     if (content.style.display === "none") {
-        content.style.display = "block";
-        this.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Nascondi Info';
+        content.style.display = "block"; // Mostra il contenuto
+        this.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Nascondi Info'; // Cambia testo bottone
     } else {
-        content.style.display = "none";
-        this.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info';
+        content.style.display = "none"; // Nascondi il contenuto
+        this.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info'; // Cambia testo bottone
     }
 });
+
+document.getElementById("btn-show-content-location").addEventListener("click", function () {
+    var content = document.getElementById("map-content");
+    if (content.style.display === "none") {
+        content.style.display = "block"; // Mostra il contenuto
+        this.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Nascondi Info'; // Cambia testo bottone
+    } else {
+        content.style.display = "none"; // Nascondi il contenuto
+        this.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info'; // Cambia testo bottone
+    }
+});
+
 
 // MD5 Encoding
 var MD5 = function (string) {
@@ -435,13 +447,34 @@ var MD5 = function (string) {
         return WordToHexValue;
     };
 
-
-    function googleTranslateElementInit() {
-        new google.translate.TranslateElement(
-          { pageLanguage: 'it', includedLanguages: 'en,es,fr,de', layout: google.translate.TranslateElement.InlineLayout.SIMPLE },
-          'google_translate_element'
-        );
+    function setLanguage(lang) {
+        document.cookie = `lang=${lang}; path=/; max-age=31536000`; // Salva nei cookie (1 anno)
+        localStorage.setItem("preferredLanguage", lang);
+        
+        // 🔹 Cambia immediatamente la lingua senza aspettare il refresh
+        if (!window.location.pathname.startsWith(`/${lang}/`)) {
+          window.location.href = `/${lang}/`;
+        }
       }
+    
+      document.getElementById("language-selector").addEventListener("change", function () {
+        setLanguage(this.value);
+      });
+    
+      (function () {
+        const cookies = document.cookie.split("; ").reduce((acc, curr) => {
+          const [key, value] = curr.split("=");
+          acc[key] = value;
+          return acc;
+        }, {});
+    
+        const storedLang = localStorage.getItem("preferredLanguage") || cookies.lang;
+    
+        if (storedLang) {
+          document.getElementById("language-selector").value = storedLang;
+        }
+      })();
+
 
     function Utf8Encode(string) {
         string = string.replace(/\r\n/g, "\n");

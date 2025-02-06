@@ -12,7 +12,6 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Saul & Dalia si sposano!</title>
-    <div id="google_translate_element"></div>
     <meta name="description" content="Vorremo invitarvi al nostro grande giorno.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
@@ -28,8 +27,8 @@
     <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
 
     <link rel="stylesheet" href="css/styles.min.css">
-    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     
+
     <script>
         // load css files from CDN if local node_modules fail
         function loadCssFromCDN(css) {
@@ -62,10 +61,6 @@
     <link rel="stylesheet" href="node_modules/animate.css/animate.min.css" onerror="loadCssFromCDN('animate.css')">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
-    <link rel="alternate" hreflang="it" href="https://sd-carrion-wedding.netlify.app/it/" />
-    <link rel="alternate" hreflang="en" href="https://sd-carrion-wedding.netlify.app/en/" />
-    <link rel="alternate" hreflang="es" href="https://sd-carrion-wedding.netlify.app/es/" />
-    <link rel="alternate" hreflang="pl" href="https://sd-carrion-wedding.netlify.app/pl/" />
 </head>
 
 <body id="top">
@@ -81,29 +76,32 @@
                     <div class="header-nav">
                         <nav>
                             <ul class="primary-nav">
-                                <li><a href="#intro">La storia</a></li>
-                                <li><a href="#events">Eventi</a></li>
-                                <li><a href="#instagram">Instagram</a></li>
-                                <li><a href="#eng-pics">Le foto</a></li>
-                                <li class="hidden-sm hidden-xs"><a href="#video-bg">Un occhio alla città</a></li>
-                                <li><a href="#song">Suggerimenti</a></li>
+                                <li><a href="#intro" data-key="intro">La storia</a></li>
+                                <li><a href="#events" data-key="events">Eventi</a></li>
+                                <li><a href="#instagram" data-key="instagram">Instagram</a></li>
+                                <li><a href="#eng-pics" data-key="photos">Le foto</a></li>
+                                <li class="hidden-sm hidden-xs"><a href="#video-bg" data-key="video-bg" data-key="city">Un occhio alla città</a></li>
+                                <li><a href="#song" data-key="suggestions">Suggerimenti</a></li>
                             </ul>
                             <ul class="member-actions">
-
-                                <li><a href="#map" class="login">Lughi</a></li>
-                                <li><a href="#rsvp" class="btn-white btn-small">Conferme</a></li>
-                                <select id="languageSelector">
-                                    <option value="it">Italiano</option>
-                                    <option value="en">English</option>
-                                    <option value="es">Español</option>
-                                    <option value="pl">Polski</option>
-                                  </select>
+                                <li><a href="#map" data-key="map" class="login">Luoghi</a></li>
+                                <li><a href="#rsvp" data-key="rsvp" class="btn-white btn-small">Conferme</a></li>
+                                <li>
+                                    <select id="language-selector">
+                                        <option value="en">🇺🇸 English</option>
+                                        <option value="it">🇮🇹 Italiano</option>
+                                        <option value="es">🇪🇸 Español</option>
+                                    </select>
+                                </li>
                             </ul>
                         </nav>
                     </div>
+                    
                     <div class="navicon">
                         <a class="nav-toggle" href="#"><span></span></a>
                     </div>
+
+                    
                 </div>
             </header>
         </section>
@@ -120,68 +118,18 @@
                 <div class="col-sm-4 hidden-xs text-center"><a href="#rsvp"
                         class="btn btn-accent btn-large rsvp-btn">Conferme</a></div>
                 <div class="col-sm-4 hidden-xs"></div>
+                
             </div>
         </div>
-        <div class="down-arrow floating-arrow"><a href="#invitation"><i class="fa fa-angle-down"></i></a></div>
-        <script>
-            // Funzione per mappare il codice paese alla lingua
-            function getLanguageFromCountryCode(countryCode) {
-              const countryToLanguage = {
-                'IT': 'it', // Italia
-                'US': 'en', // Stati Uniti
-                'ES': 'es', // Spagna
-                'FR': 'pl', // Francia
-                // Aggiungi altre mappature qui
-              };
-              return countryToLanguage[countryCode] || 'en'; // Default a inglese
-            }
-        
-            // Funzione per reindirizzare l'utente in base alla lingua
-            function redirectBasedOnLanguage(language) {
-              const currentPath = window.location.pathname;
-              // Verifica se l'utente è già nella cartella corretta
-              if (!currentPath.startsWith(`/translate/${language}`)) {
-                window.location.href = `/translate/${language}/index.html`;
-              }
-            }
-        
-            // Ottieni la posizione dell'utente e determina la lingua
-            if (navigator.geolocation) {
-              navigator.geolocation.getCurrentPosition(
-                (position) => {
-                  const lat = position.coords.latitude;
-                  const lon = position.coords.longitude;
-                  // Usa BigDataCloud per ottenere il paese
-                  fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=it`)
-                    .then(response => response.json())
-                    .then(data => {
-                      const countryCode = data.countryCode; 
-                      const language = getLanguageFromCountryCode(countryCode);
-                      redirectBasedOnLanguage(language);
-                    })
-                    .catch(() => {
-                      console.log("Impossibile determinare la posizione. Usa la lingua di default.");
-                      redirectBasedOnLanguage('it'); // Fallback alla lingua di default
-                    });
-                },
-                () => {
-                  console.log("L'utente ha rifiutato la geolocalizzazione. Usa la lingua di default.");
-                  redirectBasedOnLanguage('it'); // Fallback alla lingua di default
-                }
-              );
-            } else {
-              console.log("Geolocalizzazione non supportata. Usa la lingua di default.");
-              redirectBasedOnLanguage('it'); // Fallback alla lingua di default
-            }
-          </script>
+        <div class="down-arrow floating-arrow"><a href="#invitation" ><i class="fa fa-angle-down"></i></a></div>
     </section>
 
     <section id="invitation" class="section-padding">
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3>Ci stiamo sposando</h3>
-                    <p>Il giorno felice è 29 Gennaio 2026 e vorremmo fossi parte di esso.</p>
+                    <h3 data-key="gettingMerried">Ci sposiamo</h3>
+                    <p data-key="dataDescr">Il giorno felice è 29 Gennaio 2026 e vorremmo fossi parte di esso.</p>
                 </div>
             </div>
         </div>
@@ -191,13 +139,13 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3 class="header">La storia</h3>
+                    <h3 data-key="story" class="header">La storia</h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-3 hidden-sm hidden-xs"><img src="img/SC.png" class="wp1"></div>
                 <div class="col-md-6">
-                    <p>
+                    <p data-key="storyExp">
                         Ci siamo conosciuti nel 2011 in circostanze particolari e il nostro rapporto iniziale era
                         conflittuale. Nel 2013, con la nascita di suo figlio Nathan, ho iniziato a vederlo sotto una
                         luce diversa. Col tempo, le nostre vite sentimentali hanno preso strade diverse e nel 2018 mi
@@ -223,44 +171,43 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12">
-                    <h3 class="header">Eventi</h3>
+                    <h3 data-key="events" class="header">Eventi</h3>
                 </div>
             </div>
             <div class="row">
                 <div class="col-md-6 col-sm-12 col-xs-12 leftcol">
                     <div class="wp3">
-                        <p><strong>Data da definire</strong></p>
+                        <p data-key="dataDaDefinire"><strong>Data da definire</strong></p>
 
-                        <h5>Addio al celibato Saul <span class="time">Orario da Definire</span></h5>
-                        <p>Ci saranno le informazioni neccessarie per l'evento nel prossimo futuro!</p>
+                        <h5 data-key="celibatoTitle">Addio al celibato Saul <span data-key="celibatoTime" class="time">Orario da Definire</span></h5>
+                        <p data-key="celibatoDaDefinire">Ci saranno le informazioni neccessarie per l'evento nel prossimo futuro!</p>
                     </div>
                     <div class="wp5">
-                        <h5>Addio al nubilato Dalia <span class="time">Orario da Definire</span></h5>
-                        <p>Ci saranno le informazioni neccessarie per l'evento nel prossimo futuro!</p>
+                        <h5 data-key="nubilatoTitle">Addio al nubilato Dalia <span data-key="celibatoTime" class="time">Orario da Definire</span></h5>
+                        <p data-key="nubilatoDaDefinire">Ci saranno le informazioni neccessarie per l'evento nel prossimo futuro!</p>
                     </div>
 
                     
                 </div>
                 <div class="col-md-6 col-sm-12 col-xs-12 rightcol">
                     <div class="wp4">
-                        <p><strong>29 Gennaio</strong></p>
+                        <p data-key="date"><strong>29 Gennaio</strong></p>
 
-                        <h5>Preparativi sposa<span class="time"> 14.30-19.45</span></h5>
-                        <p>I preparativi della sposa e delle damigelle/famiglia si svolgerà nella
+                        <h5 data-key="prepSposaTitle">Preparativi sposa<span class="time" data-key="prepTime"> 14.30-19.45</span></h5>
+                        <p data-key="prepSposaInfo">I preparativi della sposa e delle damigelle/famiglia si svolgerà nella
                             location indicata per ricevimento. Maggiori informazioni nel prossimo futuro.
                         </p>
                     </div>
 
                     <div class="wp6">
-                        <h5>Matrimonio <span class="time"> 20.00-22.00</span></h5>
-                        <p>La cerimonia si svolgerà nella chiesa di Santa Kinga nell'orario indicato.
+                        <p data-key="weddingDesc">La cerimonia si svolgerà nella chiesa di Santa Kinga nell'orario indicato.
                             Si prega di non arrivare in anticipo, poiché la cerimonia inizierà in orario.
                         </p>
                     </div>
 
                     <div class="wp7">
-                        <h5>Ricevimento <span class="time"> 22.00- alba</span></h5>
-                        <p>Si mangia, si beve, si balla e si festeggia l'amore!</p>
+                        <h5 data-key="paryTitle">Ricevimento <span class="time" data-key="partyTime"> 22.00- alba</span></h5>
+                        <p data-key="partyDesc">Si mangia, si beve, si balla e si festeggia l'amore!</p>
                     </div>
                     
                 </div>
@@ -280,30 +227,30 @@
                     <div class="modal-body">
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span>
                         </button>
-                        <h3 class="text-center section-padding">Ugh... dress code?</h3>
-                        <h5>Addio al nubilato e celibato<span class="time">Orario da definire</span></h5>
+                        <h3  class="text-center section-padding">Ugh... dress code?</h3>
+                        <h5 data-key="addioTitle">Addio al nubilato e celibato<span class="time">Orario da definire</span></h5>
                         <p>
-                            <strong>Sportivo-Casual</strong>
+                            <strong data-key="sportCas">Sportivo-Casual</strong>
                             <br>
-                            Gli uomini possono trarre spunto da un outfit
-                            <a href="https://it.pinterest.com/search/pins/?q=look%20casual%20sportivo%20uomo&rs=typed">comodo.</a>
-                            mentre le donne possono ispirarsi a un outfit
-                            simile <a href="https://it.pinterest.com/search/pins/?q=look%20casual%20donna%20azzurro&rs=typed">nel colore
-                            scelto dalla sposa
-                            </a> indipendentement da stile (pantalone o gonna).
+                            <span data-key="menOutfit">Gli uomini possono trarre spunto da un outfit</span>
+                            <a href="https://it.pinterest.com/search/pins/?q=look%20casual%20sportivo%20uomo&rs=typed" data-key="comodo">comodo. </a>
+                            <span data-key="womenOutfit">mentre le donne possono ispirarsi a un outfit simile</span>
+                            <a href="https://it.pinterest.com/search/pins/?q=look%20casual%20donna%20azzurro&rs=typed" data-key="color">nel colore
+                            scelto dalla sposa</a>
+                            <span data-key="style"></span> indipendentement da stile (pantalone o gonna).
                         </p>
-                        <h5>Matrimonio <span class="time">20.00-22.00</span></h5>
+                        <h5 data-key="weddingTitle">Matrimonio <span class="time">20.00-22.00</span></h5>
                         <p>
-                            <strong><Polacco-peruviano></Polacco-peruviano></strong>
+                            <strong data-key="titlePLPER"><Polacco-peruviano></Polacco-peruviano></strong>
                             <br>
-                            Le donne possono sfoggiare i loro 
-                            <a href="https://it.pinterest.com/search/pins/?rs=ac&len=2&q=abito%20donna%20invitata%20matrimonio&eq=abito%20donna%20invitata&etslf=3945">abiti</a>,
-                            <a href="https://it.pinterest.com/search/pins/?q=tailleur%20donna%20invitata%20matrimonio&rs=typed/">tailleur</a>,
-                            e simili, purchè eleganti,
-                            mentre i signori possono utilizzare qualsiasi tipo di abito da cerimonia purche non sia nero. Se non vi aggrada un abito
-                            potreste comunque
-                            avere un outfit elegante <a
-                                href="https://it.pinterest.com/search/pins/?q=outfit%20uomo%20elegante&rs=typed">non troppo impegnativo</a> e comodo.
+                            <span data-key="womenOutfitWed">Le donne possono sfoggiare i loro</span>
+                            <a href="https://it.pinterest.com/search/pins/?rs=ac&len=2&q=abito%20donna%20invitata%20matrimonio&eq=abito%20donna%20invitata&etslf=3945" data-key="dress">abiti</a>,
+                            <a href="https://it.pinterest.com/search/pins/?q=tailleur%20donna%20invitata%20matrimonio&rs=typed/" data-key="tailleur">tailleur</a>,
+                            <span data-key="elegantNote">e simili, purchè eleganti,</span>
+                            <span data-key="menOutfitWed">mentre i signori possono utilizzare qualsiasi tipo di abito da cerimonia purche non sia nero. Se non vi aggrada un abito</span>
+                            <span data-key="alternativeOption">potreste comunque avere un outfit elegante</span>
+                            <a href="https://it.pinterest.com/search/pins/?q=outfit%20uomo%20elegante&rs=typed" data-key="impegnativoWed">non troppo impegnativo</a>
+                            <span data-key="comfortNote">e comodo.</span>
                         </p>
                     </div>
                 </div><!-- /.modal-content -->
@@ -316,8 +263,8 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3>Una foto può significare molto!</h3>
-                    <p>Aiutaci a catturare i momenti più belli, condividi l'hashtag 
+                    <h3 data-key="instaTitle">Una foto può significare molto!</h3>
+                    <p data-key="instaDescr">Aiutaci a catturare i momenti più belli, condividi l'hashtag 
                         <a href="https://instagram.com/explore/tags/sdWedding2026/" target="_blank">#sdWedding2026</a>
                     </p>
                 </div>
@@ -334,7 +281,7 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-md-12 text-center">
-                    <h3 class="header">Foto della nostra storia</h3>
+                    <h3 data-key="engPics" class="header">Foto della nostra storia</h3>
                 </div>
             </div>
             <div class="row">
@@ -412,15 +359,15 @@
             data-property="{videoURL:'https://www.youtube.com/watch?v=i8btwOYa-R0',containment:'#video-bg',autoPlay:true, mute:true, showControls:false, startAt:164, stopAt:227, opacity:1}">
         </div>
         <div id="video-content">
-            <h5>Wieliczka</h5>
-            <p>Chiesa di Santa Kinga</p>
+            <h5 >Wieliczka</h5>
+            <p data-key="chiesaKinga">Chiesa di Santa Kinga</p>
         </div>
     </section>
 
     <section id="map" class="section-padding">
         <div class="text-center">
-            <h3>Come arrivarci?</h3>
-            <p>E' più semplice di quello che pensi!</p>
+            <h3 data-key="getThere">Come arrivarci?</h3>
+            <p data-key="getThereDescr">E' più semplice di quello che pensi!</p>
         </div>
     
         <div class="container">
@@ -428,25 +375,26 @@
                 <!-- Mappa Chiesa -->
                 <div class="col-md-6">
                     <div class="text-center">
-                        <h3>Chiesa</h3>
+                        <h3 data-key="chiesa">Chiesa</h3>
                     </div>
                     <div id="map-chiesa" style="width: 100%; height: 400px; background: #ccc;"></div>
     
                     <!-- Info Chiesa -->
                     <div class="text-center" style="margin-top: 10px;">
                         <button id="btn-show-content-chiesa" class="btn btn-info">
-                            <i class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info
+                            <i data-key="showInfo" class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info
                         </button>
                     </div>
                     <div id="map-content-chiesa" class="map-content" style="display: none; padding: 15px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
-                        <h5>Chiesa di San Sebastiano</h5>
+                        <h5 data-key="chiesaKinga">Chiesa di Santa Kinga</h5>
                         <p>
-                            📍 <strong>Indirizzo:</strong> Daniłowicza 10, 32-020 Wieliczka, Polonia  
-                            🔗 <strong>Pagina web:</strong> <a href="https://www.minieradisalewieliczka.it/" target="_blank">Visita il sito</a>
+                            📍 <span data-key="address"><strong>Indirizzo:</strong> Daniłowicza 10, 32-020 Wieliczka, Polonia  </span>
+                            <br>
+                            🔗 <span data-key="website"><strong>Pagina web:</strong> <a href="https://www.minieradisalewieliczka.it/" data-key="visitWeb" target="_blank">Visita il sito</a></span>
                         </p>
                         <div class="text-center">
                             <a class="btn btn-fill btn-small"
-                                href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=Daniłowicza%2010,%2032-020%20Wieliczka,%20Polonia&dropoff[latitude]=49.9794&dropoff[longitude]=20.0647">
+                                href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=Daniłowicza%2010,%2032-020%20Wieliczka,%20Polonia&dropoff[latitude]=49.9794&dropoff[longitude]=20.0647" data-key="uber">
                                 <i class="fa fa-taxi"></i>&nbsp;&nbsp; Chiama Uber
                             </a>
                     </div>
@@ -457,25 +405,26 @@
                 <!-- Mappa Location -->
                 <div class="col-md-6">
                     <div class="text-center">
-                        <h3>Reception</h3>
+                        <h3 data-key="reception">Reception</h3>
                     </div>
                     <div id="map-location" style="width: 100%; height: 400px; background: #ccc;"></div>
     
                     <!-- Info Location -->
                     <div class="text-center" style="margin-top: 10px;">
                         <button id="btn-show-content-location" class="btn btn-info">
-                            <i class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info
+                            <i data-key="showInfo" class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info
                         </button>
                     </div>
                     <div id="map-content-location" class="map-content" style="display: none; padding: 15px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
-                        <h5>Ristorante Kopalnia Soli Wieliczka</h5>
+                        <h5 data-key="locationTitle">Ristorante Kopalnia Soli Wieliczka</h5>
                         <p>
-                            📍 <strong>Indirizzo:</strong> G.Narutowicza 1, 32-020 Wieliczka, Polonia  
-                            🔗 <strong>Pagina web:</strong> <a href="https://hotellenart.pl/en/" target="_blank">Visita il sito</a>
+                            📍 <span data-key="address"></span><strong>Indirizzo:</strong> G.Narutowicza 1, 32-020 Wieliczka, Polonia  </span>
+                            <br>
+                            🔗 <span data-key="website"></span><strong>Pagina web:</strong> </span> <a href="https://hotellenart.pl/en/" target="_blank" data-key="visitWeb">Visita il sito</a> 
                         </p>
                         <div class="text-center">
                             <a class="btn btn-fill btn-small"
-                                href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=Daniłowicza%2010,%2032-020%20Wieliczka,%20Polonia&dropoff[latitude]=49.9794&dropoff[longitude]=20.0647">
+                                href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=Daniłowicza%2010,%2032-020%20Wieliczka,%20Polonia&dropoff[latitude]=49.9794&dropoff[longitude]=20.0647" data-key="uber">
                                 <i class="fa fa-taxi"></i>&nbsp;&nbsp; Chiama Uber
                             </a>
                         </div>
@@ -517,8 +466,8 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span>
                         </button>
                         <div class="section-padding">
-                            <h3>Grazie!</h3>
-                            <p>Siamo molto contenti che ci hai dato uno spunto con qui divertirci insieme.</p>
+                            <h3 data-key="thank">Grazie!</h3>
+                            <p data-key="intro">We are very happy that you gave us an idea to have fun together.</p>
                         </div>
                     </div>
                 </div><!-- /.modal-content -->
@@ -528,40 +477,36 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <h3>Hai dei suggerimenti?</h3>
-                    <p>Dacci delle idee delle canzoni che non possono mancare alla festa</p>
+                    <h3 data-key="songTitle">Che canzone non puo' mancare?</h3>
+                    <p data-key="songDesc">Le canzoni che DEVONO esserci alla festa.</p>
                     <form id="song-form" class="song-form" action="" method="POST">
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-input-group">
-                                    <i class="fa fa-envelope"></i><input id="title" name="title" class=""
-                                        placeholder="Titolo" required>
+                                    <i class="fa fa-envelope"></i><input id="title" name="title" class="" placeholder="Titolo" data-key="titleInput" required>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-input-group">
-                                    <i class="fa fa-user"></i><input id="artist" name="artist" class="" placeholder="Artista"
-                                        required >
+                                    <i class="fa fa-user"></i><input id="artist" name="artist" class="" placeholder="Artista" data-key="artistInput" required >
                                 </div>
                             </div>
 
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-input-group">
-                                    <i class="fa fa-key"></i><input name="note" id="note"
-                                        class="" placeholder="Note">
+                                    <i class="fa fa-key"></i><input name="note" id="note" class="" placeholder="Note" data-key="noteInput">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-input-group">
-                                    <i class="fa fa-key"></i><input name="person" id="person"
-                                        class="" placeholder="Consigliere">
+                                    <i class="fa fa-key"></i><input name="person" id="person" class="" placeholder="Consigliere" data-key="suggInput">
                                 </div>
                             </div>
                         
                         <div class="row">
                             <div class="col-md-12" id="alert-wrapper"></div>
                         </div>
-                        <button class="btn-fill song-btn">
+                        <button data-key="addSugg" class="btn-fill song-btn">
                             Aggiungi suggerimento!
                         </button>
                     </form>
@@ -582,8 +527,8 @@
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span>&times;</span>
                         </button>
                         <div class="section-padding">
-                            <h3>Grazie!</h3>
-                            <p>Siamo Felici che potrai raggiungerci nel nostro giorno importante.</p>
+                            <h3 data-key="thank">Grazie!</h3>
+                            <p data-key="happyRSVP">Siamo Felici che potrai raggiungerci nel nostro giorno importante.</p>
                             <div id="add-to-cal"></div>
                         </div>
                     </div>
@@ -594,41 +539,37 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-md-offset-3">
-                    <h3>Che stai aspettando?</h3>
-                    <p>Vorremo che rispondessi gentilmente entro Settembre 2025</p>
+                    <h3  data-key="whatWaiting">Che stai aspettando?</h3>
+                    <p data-key="rsvpDescr">Vorremo che rispondessi gentilmente entro Settembre 2025</p>
                     <form id="rsvp-form" class="rsvp-form" action="" method="POST">
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-input-group">
-                                    <i class="fa fa-envelope"></i><input type="email" id="email" name="email" class=""
-                                        placeholder="Email" required>
+                                    <i class="fa fa-envelope"></i><input type="email" id="email" name="email" class="" placeholder="Email" data-key="email" required>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-input-group">
-                                    <i class="fa fa-user"></i><input id="name" name="name" class="" placeholder="Nome"
-                                        required >
+                                    <i class="fa fa-user"></i><input id="name" name="name" class="" placeholder="Nome" data-key="nome" required >
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-input-group">
-                                    <i class="fa fa-users"></i><input id="numero_ospiti" type="number" name="extras" class="" min="0"
-                                        max="4" placeholder="Accompagnatori">
+                                    <i class="fa fa-users"></i><input id="numero_ospiti" type="number" name="extras" class="" min="0" max="4" placeholder="Accompagnatori" data-key="plusOne">
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-input-group">
-                                    <i class="fa fa-key"></i><input name="note" id="note"
-                                        class="" placeholder="Note">
+                                    <i class="fa fa-key"></i><input name="note" id="note" class="" placeholder="Note" data-key="noteInput">
                                 </div>
                             </div>
                         </div>
                         <div class="row">
                             <div class="col-md-12" id="alert-wrapper"></div>
                         </div>
-                        <button class="btn-fill rsvp-btn">
+                        <button data-key="btnRsvp" class="btn-fill rsvp-btn">
                             Si!
                             Sono io!
                         </button>
@@ -643,7 +584,7 @@
             <div class="row">
                 <div class="col-sm-12 text-center content">
                     <span class="to-top-wrapper"><a href="#top" class="to-top"><i class="fa fa-angle-up"></i></a></span>
-                    <p>Fatto da Dalia con molto <span class="fa fa-heart pulse2"></span> per Saul</p>
+                    <p data-key="footer" >Fatto da Dalia con molto <span class="fa fa-heart pulse2"></span> per Saul</p>
                 </div>
             </div>
         </div>
@@ -656,6 +597,7 @@
     <script src="js/jquery.mb.YTPlayer.min.js"></script>
     <script src="js/vendor/ouical.js"></script>
     <script src="js/scripts.min.js"></script>
+    <script src="js/language-switcher.js"></script>
     <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiYx6OS4pyjFPSfyhP8Qo6UvRKOUvaa0k&&libraries=marker&load=async" async defer></script>
     <script>
         window.onload = function() {
@@ -670,61 +612,8 @@
         };
     </script>
 
-<script>
-    // Funzione per mappare il codice paese alla lingua
-    function getLanguageFromCountryCode(countryCode) {
-      const countryToLanguage = {
-        'IT': 'it', // Italia
-        'US': 'en', // Stati Uniti
-        'GB': 'en', // Regno Unito
-        'ES': 'es', // Spagna
-        'FR': 'fr', // Francia
-        'DE': 'de', // Germania
-        // Aggiungi altre mappature qui
-      };
-      return countryToLanguage[countryCode] || 'en'; // Default a inglese
-    }
-  
-    // Funzione per reindirizzare l'utente in base alla lingua
-    function redirectBasedOnLanguage(language) {
-      const currentPath = window.location.pathname;
-      if (!currentPath.startsWith(`/${language}/`)) {
-        window.location.href = `/${language}/`;
-      }
-    }
-  
-    // Ottieni la posizione dell'utente e determina la lingua
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(
-        (position) => {
-          const lat = position.coords.latitude;
-          const lon = position.coords.longitude;
-          // Usa BigDataCloud per ottenere il paese
-          fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=it`)
-            .then(response => response.json())
-            .then(data => {
-              const countryCode = data.countryCode; // Es. 'IT', 'US', 'ES'
-              const language = getLanguageFromCountryCode(countryCode);
-              redirectBasedOnLanguage(language);
-            })
-            .catch(() => {
-              console.log("Impossibile determinare la posizione. Usa la lingua di default.");
-            });
-        },
-        () => {
-          console.log("L'utente ha rifiutato la geolocalizzazione. Usa la lingua di default.");
-        }
-      );
-    } else {
-      console.log("Geolocalizzazione non supportata. Usa la lingua di default.");
-    }
+    
 
-
-    document.getElementById('languageSelector').addEventListener('change', function() {
-    var selectedLanguage = this.value;
-    window.location.href = `/${selectedLanguage}/`;
-    });
-  </script>
 
 </body>
 

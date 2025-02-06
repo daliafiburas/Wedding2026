@@ -1,3 +1,7 @@
 [build]
-  command = "npx gulp"
-  publish = "."
+command = "npx gulp"
+publish = "."
+
+[[edge_functions]]
+path = "/*"
+function = "geo"
