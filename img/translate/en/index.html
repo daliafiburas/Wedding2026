@@ -12,6 +12,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <title>Saul & Dalia si sposano!</title>
+    <div id="google_translate_element"></div>
     <meta name="description" content="Vorremo invitarvi al nostro grande giorno.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
@@ -27,17 +28,8 @@
     <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
 
     <link rel="stylesheet" href="css/styles.min.css">
-    <div id="google_translate_element"></div>
-<script>
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement(
-      { pageLanguage: 'it', includedLanguages: 'en,es,pl,de', layout: google.translate.TranslateElement.InlineLayout.SIMPLE },
-      'google_translate_element'
-    );
-  }
-</script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
     <script>
         // load css files from CDN if local node_modules fail
         function loadCssFromCDN(css) {
@@ -131,6 +123,57 @@
             </div>
         </div>
         <div class="down-arrow floating-arrow"><a href="#invitation"><i class="fa fa-angle-down"></i></a></div>
+        <script>
+            // Funzione per mappare il codice paese alla lingua
+            function getLanguageFromCountryCode(countryCode) {
+              const countryToLanguage = {
+                'IT': 'it', // Italia
+                'US': 'en', // Stati Uniti
+                'ES': 'es', // Spagna
+                'FR': 'pl', // Francia
+                // Aggiungi altre mappature qui
+              };
+              return countryToLanguage[countryCode] || 'en'; // Default a inglese
+            }
+        
+            // Funzione per reindirizzare l'utente in base alla lingua
+            function redirectBasedOnLanguage(language) {
+              const currentPath = window.location.pathname;
+              // Verifica se l'utente è già nella cartella corretta
+              if (!currentPath.startsWith(`/translate/${language}/index.html`)) {
+                window.location.href = `/translate/${language}/`;
+              }
+            }
+        
+            // Ottieni la posizione dell'utente e determina la lingua
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(
+                (position) => {
+                  const lat = position.coords.latitude;
+                  const lon = position.coords.longitude;
+                  // Usa BigDataCloud per ottenere il paese
+                  fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=it`)
+                    .then(response => response.json())
+                    .then(data => {
+                      const countryCode = data.countryCode; 
+                      const language = getLanguageFromCountryCode(countryCode);
+                      redirectBasedOnLanguage(language);
+                    })
+                    .catch(() => {
+                      console.log("Impossibile determinare la posizione. Usa la lingua di default.");
+                      redirectBasedOnLanguage('it'); // Fallback alla lingua di default
+                    });
+                },
+                () => {
+                  console.log("L'utente ha rifiutato la geolocalizzazione. Usa la lingua di default.");
+                  redirectBasedOnLanguage('it'); // Fallback alla lingua di default
+                }
+              );
+            } else {
+              console.log("Geolocalizzazione non supportata. Usa la lingua di default.");
+              redirectBasedOnLanguage('it'); // Fallback alla lingua di default
+            }
+          </script>
     </section>
 
     <section id="invitation" class="section-padding">

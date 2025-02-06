@@ -11,12 +11,13 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <title>Saul y Dalia se casan!</title>
-    <meta name="description" content="Los quisieramis invitar a nuestro gran dia.">
+    <title>Saul & Dalia si sposano!</title>
+    <div id="google_translate_element"></div>
+    <meta name="description" content="Vorremo invitarvi al nostro grande giorno.">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="theme-color" content="#ffffff">
-    <meta property="og:title" content="Saul y Dalia se casan!">
-    <meta property="og:description" content="Los quisieramis invitar a nuestro gran dia.">
+    <meta property="og:title" content="Saul & Dalia si sposano!">
+    <meta property="og:description" content="Vorremo invitarvi al nostro grande giorno.">
     <meta property="og:image" content="https://sd-carrion-wedding.netlify.app/img/sfondo.jpg">
     <meta property="og:image" content="https://sd-carrion-wedding.netlify.app/img/sfondo.jpg">
     <meta property="og:type" content="website">
@@ -27,17 +28,8 @@
     <link rel="mask-icon" href="safari-pinned-tab.svg" color="#5bbad5">
 
     <link rel="stylesheet" href="css/styles.min.css">
-    <div id="google_translate_element"></div>
-<script>
-  function googleTranslateElementInit() {
-    new google.translate.TranslateElement(
-      { pageLanguage: 'it', includedLanguages: 'en,es,pl,it', layout: google.translate.TranslateElement.InlineLayout.SIMPLE },
-      'google_translate_element'
-    );
-  }
-</script>
-<script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
+    <script src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    
     <script>
         // load css files from CDN if local node_modules fail
         function loadCssFromCDN(css) {
@@ -77,10 +69,10 @@
 </head>
 
 <body id="top">
-    <[if lt IE 8]>
+    <!--[if lt IE 8]>
 <p class="browserupgrade">You are using an <strong>outdated</strong> browser. Please <a href="https://browsehappy.com/">upgrade
     your browser</a> to improve your experience.</p>
-<[endif]>
+<![endif]-->
     <section class="hero">
         <section class="navigation">
             <header>
@@ -89,17 +81,17 @@
                     <div class="header-nav">
                         <nav>
                             <ul class="primary-nav">
-                                <li><a href="#intro">La historia</a></li>
-                                <li><a href="#events">Eventos</a></li>
+                                <li><a href="#intro">La storia</a></li>
+                                <li><a href="#events">Eventi</a></li>
                                 <li><a href="#instagram">Instagram</a></li>
-                                <li><a href="#eng-pics">Las fotos</a></li>
-                                <li class="hidden-sm hidden-xs"><a href="#video-bg">Una mirada de la ciudad</a></li>
-                                <li><a href="#song">Sugerimentos</a></li>
+                                <li><a href="#eng-pics">Le foto</a></li>
+                                <li class="hidden-sm hidden-xs"><a href="#video-bg">Un occhio alla città</a></li>
+                                <li><a href="#song">Suggerimenti</a></li>
                             </ul>
                             <ul class="member-actions">
 
-                                <li><a href="#map" class="login">Lugares</a></li>
-                                <li><a href="#rsvp" class="btn-white btn-small">Confirmas</a></li>
+                                <li><a href="#map" class="login">Lughi</a></li>
+                                <li><a href="#rsvp" class="btn-white btn-small">Conferme</a></li>
                                 <select id="languageSelector">
                                     <option value="it">Italiano</option>
                                     <option value="en">English</option>
@@ -131,6 +123,57 @@
             </div>
         </div>
         <div class="down-arrow floating-arrow"><a href="#invitation"><i class="fa fa-angle-down"></i></a></div>
+        <script>
+            // Funzione per mappare il codice paese alla lingua
+            function getLanguageFromCountryCode(countryCode) {
+              const countryToLanguage = {
+                'IT': 'it', // Italia
+                'US': 'en', // Stati Uniti
+                'ES': 'es', // Spagna
+                'FR': 'pl', // Francia
+                // Aggiungi altre mappature qui
+              };
+              return countryToLanguage[countryCode] || 'en'; // Default a inglese
+            }
+        
+            // Funzione per reindirizzare l'utente in base alla lingua
+            function redirectBasedOnLanguage(language) {
+              const currentPath = window.location.pathname;
+              // Verifica se l'utente è già nella cartella corretta
+              if (!currentPath.startsWith(`/translate/${language}/index.html`)) {
+                window.location.href = `/translate/${language}/`;
+              }
+            }
+        
+            // Ottieni la posizione dell'utente e determina la lingua
+            if (navigator.geolocation) {
+              navigator.geolocation.getCurrentPosition(
+                (position) => {
+                  const lat = position.coords.latitude;
+                  const lon = position.coords.longitude;
+                  // Usa BigDataCloud per ottenere il paese
+                  fetch(`https://api.bigdatacloud.net/data/reverse-geocode-client?latitude=${lat}&longitude=${lon}&localityLanguage=it`)
+                    .then(response => response.json())
+                    .then(data => {
+                      const countryCode = data.countryCode; 
+                      const language = getLanguageFromCountryCode(countryCode);
+                      redirectBasedOnLanguage(language);
+                    })
+                    .catch(() => {
+                      console.log("Impossibile determinare la posizione. Usa la lingua di default.");
+                      redirectBasedOnLanguage('it'); // Fallback alla lingua di default
+                    });
+                },
+                () => {
+                  console.log("L'utente ha rifiutato la geolocalizzazione. Usa la lingua di default.");
+                  redirectBasedOnLanguage('it'); // Fallback alla lingua di default
+                }
+              );
+            } else {
+              console.log("Geolocalizzazione non supportata. Usa la lingua di default.");
+              redirectBasedOnLanguage('it'); // Fallback alla lingua di default
+            }
+          </script>
     </section>
 
     <section id="invitation" class="section-padding">
