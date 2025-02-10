@@ -331,7 +331,7 @@ document.getElementById("btn-show-content-chiesa").addEventListener("click", fun
     var content = document.getElementById("map-content");
     if (content.style.display === "none") {
         content.style.display = "block"; // Mostra il contenuto
-        this.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Nascondi Info'; // Cambia testo bottone
+        this.innerHTML = '<i data-key="hideInfo"  class="fa fa-info-circle"></i>&nbsp;&nbsp; Nascondi Info'; // Cambia testo bottone
     } else {
         content.style.display = "none"; // Nascondi il contenuto
         this.innerHTML = '<i data-key="showInfo" class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info'; // Cambia testo bottone

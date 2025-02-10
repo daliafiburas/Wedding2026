@@ -80,7 +80,7 @@
                                 <li><a href="#events" data-key="events">Eventi</a></li>
                                 <li><a href="#instagram" data-key="instagram">Instagram</a></li>
                                 <li><a href="#eng-pics" data-key="photos">Le foto</a></li>
-                                <li class="hidden-sm hidden-xs"><a href="#video-bg" data-key="video-bg" data-key="city">Un occhio alla città</a></li>
+                                <li class="hidden-sm hidden-xs"><a href="#video-bg" data-key="city">Un occhio alla città</a></li>
                                 <li><a href="#song" data-key="suggestions">Suggerimenti</a></li>
                             </ul>
                             <ul class="member-actions">
@@ -634,6 +634,9 @@ function setLanguage(lang) {
         document.querySelectorAll("[data-key]").forEach(el => {
             const key = el.getAttribute("data-key");
             if (translations[lang][key]) {
+                if (el.tagName === "INPUT" || el.tagName === "TEXTAREA") {
+                    el.setAttribute("placeholder", translations[lang][key]); // Set placeholder
+                } 
                 el.textContent = translations[lang][key];
             }
         });
