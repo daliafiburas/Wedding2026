@@ -84,8 +84,8 @@
                                 <li><a href="#song" data-key="suggestions">Suggerimenti</a></li>
                             </ul>
                             <ul class="member-actions">
-                                <li><a href="#map" data-key="map" class="login">Luoghi</a></li>
-                                <li><a href="#rsvp" data-key="rsvp" class="btn-white btn-small">Conferme</a></li>
+                                <li><a href="#map" data-key="places" class="login">Luoghi</a></li>
+                                <li><a href="#rsvp" data-key="confirmations" class="btn-white btn-small">Conferme</a></li>
                                 <li>
                                     <select id="language-selector">
                                         <option value="en">🇺🇸 English</option>
@@ -116,7 +116,7 @@
             </div>
             <div class="row">
                 <div class="col-sm-4 hidden-xs"></div>
-                <div class="col-sm-4 hidden-xs text-center"><a href="#rsvp"
+                <div class="col-sm-4 hidden-xs text-center"><a href="#rsvp" data-key="confirmations"
                         class="btn btn-accent btn-large rsvp-btn">Conferme</a></div>
                 <div class="col-sm-4 hidden-xs"></div>
                 
@@ -238,7 +238,7 @@
                             <span data-key="womenOutfit">mentre le donne possono ispirarsi a un outfit simile</span>
                             <a href="https://it.pinterest.com/search/pins/?q=look%20casual%20donna%20azzurro&rs=typed" data-key="color">nel colore
                             scelto dalla sposa</a>
-                            <span data-key="style"></span> indipendentement da stile (pantalone o gonna).
+                            <span data-key="style"> indipendentemente dallo stile (pantalone o gonna).</span> 
                         </p>
                         <h5 data-key="weddingTitle">Matrimonio <span class="time">20.00-22.00</span></h5>
                         <p>
@@ -265,7 +265,7 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h3 data-key="instaTitle">Una foto può significare molto!</h3>
-                    <p data-key="instaDescr">Aiutaci a catturare i momenti più belli, condividi l'hashtag 
+                    <p data-key="instaDesc">Aiutaci a catturare i momenti più belli, condividi l'hashtag 
                         <a href="https://instagram.com/explore/tags/sdWedding2026/" target="_blank">#sdWedding2026</a>
                     </p>
                 </div>
@@ -383,7 +383,7 @@
                     <!-- Info Chiesa -->
                     <div class="text-center" style="margin-top: 10px;">
                         <button id="btn-show-content-chiesa" class="btn btn-info">
-                            <i data-key="showInfo" class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info
+                            <i data-key="showInfo" class="fa fa-info-circle"> &nbsp;&nbsp;Mostra Info</i> 
                         </button>
                     </div>
                     <div id="map-content-chiesa" class="map-content" style="display: none; padding: 15px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
@@ -396,7 +396,7 @@
                         <div class="text-center">
                             <a class="btn btn-fill btn-small"
                                 href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=Daniłowicza%2010,%2032-020%20Wieliczka,%20Polonia&dropoff[latitude]=49.9794&dropoff[longitude]=20.0647" data-key="uber">
-                                <i class="fa fa-taxi"></i>&nbsp;&nbsp; Chiama Uber
+                                <i class="fa fa-taxi"> &nbsp;&nbsp;Chiama Uber</i> 
                             </a>
                     </div>
                     </div>
@@ -413,7 +413,7 @@
                     <!-- Info Location -->
                     <div class="text-center" style="margin-top: 10px;">
                         <button id="btn-show-content-location" class="btn btn-info">
-                            <i data-key="showInfo" class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info
+                            <i data-key="showInfo" class="fa fa-info-circle">&nbsp;&nbsp; Mostra Info</i>
                         </button>
                     </div>
                     <div id="map-content-location" class="map-content" style="display: none; padding: 15px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
@@ -426,7 +426,7 @@
                         <div class="text-center">
                             <a class="btn btn-fill btn-small"
                                 href="https://m.uber.com/ul/?action=setPickup&pickup=my_location&dropoff[formatted_address]=Daniłowicza%2010,%2032-020%20Wieliczka,%20Polonia&dropoff[latitude]=49.9794&dropoff[longitude]=20.0647" data-key="uber">
-                                <i class="fa fa-taxi"></i>&nbsp;&nbsp; Chiama Uber
+                                <i class="fa fa-taxi">&nbsp;&nbsp; Chiama Uber</i>
                             </a>
                         </div>
                     </div>
@@ -484,7 +484,7 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-input-group">
-                                    <i class="fa fa-envelope"></i><input id="title" name="title" class="" placeholder="Titolo" data-key="titleInput" required>
+                                    <i class="fa fa-envelope"></i><input id="title" name="title" class="" placeholder="Titolo"  required>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
@@ -611,8 +611,76 @@
       d.getElementsByTagName('head')[0].appendChild(script);
       }(document));
         };
-    </script>
 
+        
+    </script>
+    <script>
+        if (typeof translations === 'undefined') {
+    const translations = {
+        en: { intro: "The story", events: "Events", instagram: "Instagram", photos: "Photos" },
+        it: { intro: "La storia", events: "Eventi", instagram: "Instagram", photos: "Le foto" },
+        es: { intro: "La historia", events: "Eventos", instagram: "Instagram", photos: "Fotos" },
+        pl: { intro: "Historia", events: "Wydarzenia", instagram: "Instagram", photos: "Zdjęcia" }
+    };
+}
+
+// Funzione per cambiare lingua e aggiornare il testo
+function setLanguage(lang) {
+    console.info("setLanguage chiamata con:", lang); // Log per debug
+    document.cookie = `lang=${lang}; path=/; max-age=31536000`;
+    localStorage.setItem("preferredLanguage", lang);
+    
+    if (translations[lang]) {
+        document.querySelectorAll("[data-key]").forEach(el => {
+            const key = el.getAttribute("data-key");
+            if (translations[lang][key]) {
+                el.textContent = translations[lang][key];
+            }
+        });
+    }
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+    var langSelector = document.getElementById("language-selector");
+    if (langSelector) {
+        langSelector.addEventListener("change", function () {
+            console.info("Lingua selezionata:", this.value); // Debug
+            setLanguage(this.value);
+        });
+    } else {
+        console.warn("Elemento #language-selector non trovato.");
+    }
+
+    // Recupero lingua salvata nei cookie o localStorage e aggiorno il selettore
+    (function () {
+        const cookies = document.cookie.split("; ").reduce((acc, curr) => {
+            const [key, value] = curr.split("=");
+            acc[key.trim()] = value;
+            return acc;
+        }, {});
+
+        const storedLang = localStorage.getItem("preferredLanguage") || cookies.lang || "en";
+        console.info("Lingua recuperata:", storedLang); // Debug
+        
+        if (storedLang) {
+            var langSelector = document.getElementById("language-selector");
+            if (langSelector) {
+                langSelector.value = storedLang;
+            }
+            setLanguage(storedLang);
+        }
+    })();
+});
+
+// Corretto caricamento di Google Maps
+document.addEventListener("DOMContentLoaded", function () {
+    let script = document.createElement("script");
+    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBiYx6OS4pyjFPSfyhP8Qo6UvRKOUvaa0k&libraries=marker";
+    script.async = true;
+    script.defer = true;
+    document.head.appendChild(script);
+});
+    </script>
     
 
 

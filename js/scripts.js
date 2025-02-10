@@ -334,7 +334,7 @@ document.getElementById("btn-show-content-chiesa").addEventListener("click", fun
         this.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Nascondi Info'; // Cambia testo bottone
     } else {
         content.style.display = "none"; // Nascondi il contenuto
-        this.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info'; // Cambia testo bottone
+        this.innerHTML = '<i data-key="showInfo" class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info'; // Cambia testo bottone
     }
 });
 
@@ -446,51 +446,6 @@ var MD5 = function (string) {
         }
         return WordToHexValue;
     };
-
-    // Funzione per cambiare lingua
-    function setLanguage(lang) {
-        console.info("setLanguage chiamata con:", lang); // Log per debug
-        document.cookie = `lang=${lang}; path=/; max-age=31536000`;
-        localStorage.setItem("preferredLanguage", lang);
-        
-        if (!window.location.pathname.startsWith(`/${lang}/`)) {
-            console.info("Reindirizzamento a:", `/${lang}/`);
-            window.location.href = `/${lang}/`;
-            setTimeout(() => { location.reload(); }, 500); // Forza reload
-        }
-    }
-
-    // Verifica che l'elemento esista prima di aggiungere l'event listener
-    document.addEventListener("DOMContentLoaded", function () {
-        var langSelector = document.getElementById("language-selector");
-        if (langSelector) {
-            langSelector.addEventListener("change", function () {
-                console.info("Lingua selezionata:", this.value); // Debug
-                setLanguage(this.value);
-            });
-        } else {
-            console.warn("Elemento #language-selector non trovato.");
-        }
-    });
-
-    // Recupero lingua salvata nei cookie o localStorage e aggiorno il selettore
-    (function () {
-        const cookies = document.cookie.split("; ").reduce((acc, curr) => {
-            const [key, value] = curr.split("=");
-            acc[key.trim()] = value;
-            return acc;
-        }, {});
-
-        const storedLang = localStorage.getItem("preferredLanguage") || cookies.lang;
-        console.info("Lingua recuperata:", storedLang); // Debug
-        
-        if (storedLang) {
-            var langSelector = document.getElementById("language-selector");
-            if (langSelector) {
-                langSelector.value = storedLang;
-            }
-        }
-    })();
 
     function Utf8Encode(string) {
         string = string.replace(/\r\n/g, "\n");
