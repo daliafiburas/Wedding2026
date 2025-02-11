@@ -322,5 +322,6 @@ const translations = {
         whatWaiting: "Na co czekasz?",
         rsvpDescr: "Prosimy o potwierdzenie obecności do września 2025 roku.",
         footer: "Stworzone przez Dalię z ogromną miłością",
+        partyTime: "22.00-rano"
     }
 };
