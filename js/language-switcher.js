@@ -158,6 +158,7 @@ const translations = {
         whatWaiting: "Cosa stai aspettando?",
         rsvpDescr: "Ci piacerebbe avere una risposta entro settembre 2025.",
         footer: "Creato da Dalia con tanto amore",
+        dataDaDefinire: "Date to be defined",
     },
     es: {
         intro: "La historia",
@@ -240,6 +241,7 @@ const translations = {
         whatWaiting: "¿Qué estás esperando?",
         rsvpDescr: "Nos gustaría recibir tu respuesta antes de septiembre de 2025.",
         footer: "Hecho por Dalia con mucho amor",
+        dataDaDefinire: "Date to be defined",
     },
     pl: {
         intro: "Historia",
@@ -274,7 +276,7 @@ const translations = {
         prepSposaInfo: "Przygotowania panny młodej i druhen/rodziny odbędą się w wyznaczonej lokacji na przyjęcie.",
         weddingTitle: "Ślub",
         weddingDesc: "Ceremonia odbędzie się w Kościele Św. Kingi o ustalonej godzinie.",
-        partyTitle: "Impreza",
+        partyTitle: "Uroczystość",
         partyDesc: "Jemy, pijemy, tańczymy i świętujemy miłość!",
         addioTitle : "Wieczór kawalerski i panieński",
         sportCas: "Sportowy-Casual",
@@ -322,6 +324,7 @@ const translations = {
         whatWaiting: "Na co czekasz?",
         rsvpDescr: "Prosimy o potwierdzenie obecności do września 2025 roku.",
         footer: "Stworzone przez Dalię z ogromną miłością",
-        partyTime: "22.00-rano"
+        partyTime: "22.00-rano",
+        dataDaDefinire: "Data do określenia",
     }
 };
