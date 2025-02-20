@@ -205,6 +205,8 @@ $(document).ready(function () {
         }
     });
 
+
+    // ADD to calendar
     $('#add-to-cal').html(myCalendar);
 
      /********************** SONG **********************/
@@ -220,7 +222,7 @@ $(document).ready(function () {
     
         console.info("Dati inviati:", data); // Log nel browser per debug
     
-        $('#alert-wrapper').html(alert_markup('info', '<strong>Un attimo!</strong> Stiamo salvando i vostri dati.'));
+        $('#alert-wrapper').html(alert_markup('info', '<span><strong>Un attimo!</strong> Stiamo salvando i vostri dati.<span>'));
     
      
 
@@ -327,28 +329,75 @@ function alert_markup(alert_type, msg) {
     return '<div class="alert alert-' + alert_type + '" role="alert">' + msg + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span>&times;</span></button></div>';
 }
 
-document.getElementById("btn-show-content-chiesa").addEventListener("click", function () {
-    var content = document.getElementById("map-content");
-    if (content.style.display === "none") {
-        content.style.display = "block"; // Mostra il contenuto
-        this.innerHTML = '<i data-key="hideInfo"  class="fa fa-info-circle"></i>&nbsp;&nbsp; Nascondi Info'; // Cambia testo bottone
-    } else {
-        content.style.display = "none"; // Nascondi il contenuto
-        this.innerHTML = '<i data-key="showInfo" class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info'; // Cambia testo bottone
+document.addEventListener("DOMContentLoaded", function () {
+    function toggleContent(btn, content) {
+        if (!btn || !content) {
+            console.error("❌ Errore: uno degli elementi non è stato trovato!", btn, content);
+            return; // Evita di eseguire codice su elementi null
+        }
+    
+        // Cambia visibilità e aggiorna il testo
+        if (content.style.display === "none" || content.style.display === "") {
+            content.style.display = "block";
+            btn.setAttribute("data-key", "hideInfo");
+        } else {
+            content.style.display = "none";
+            btn.setAttribute("data-key", "showInfo");
+        }
+    
+        setLanguage(localStorage.getItem("preferredLanguage") || "en");
     }
-});
+    
 
-document.getElementById("btn-show-content-location").addEventListener("click", function () {
-    var content = document.getElementById("map-content");
-    if (content.style.display === "none") {
-        content.style.display = "block"; // Mostra il contenuto
-        this.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Nascondi Info'; // Cambia testo bottone
+    const btnChiesa = document.getElementById("btn-show-content-chiesa");
+    const contentChiesa = document.getElementById("map-content-chiesa");
+    const btnLocation = document.getElementById("btn-show-content-location");
+    const contentLocation = document.getElementById("map-content-location");
+
+    if (btnChiesa && contentChiesa) {
+        btnChiesa.addEventListener("click", function () {
+            toggleContent(this, contentChiesa);
+        });
     } else {
-        content.style.display = "none"; // Nascondi il contenuto
-        this.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info'; // Cambia testo bottone
+        console.warn("Bottoni o contenuti per la chiesa non trovati!");
     }
-});
 
+    if (btnLocation && contentLocation) {
+        btnLocation.addEventListener("click", function () {
+            toggleContent(this, contentLocation);
+        });
+    } else {
+        console.warn("Bottoni o contenuti per la reception non trovati!");
+    }
+
+    function waitForElement(selector, callback) {
+        const element = document.getElementById(selector);
+        if (element) {
+            callback(element);
+        } else {
+            setTimeout(() => waitForElement(selector, callback), 100);
+        }
+    }
+    
+    document.addEventListener("DOMContentLoaded", function () {
+        waitForElement("btn-show-content-chiesa", function (btnChiesa) {
+            waitForElement("map-content-chiesa", function (contentChiesa) {
+                btnChiesa.addEventListener("click", function () {
+                    toggleContent(this, contentChiesa);
+                });
+            });
+        });
+    
+        waitForElement("btn-show-content-location", function (btnLocation) {
+            waitForElement("map-content-location", function (contentLocation) {
+                btnLocation.addEventListener("click", function () {
+                    toggleContent(this, contentLocation);
+                });
+            });
+        });
+    });
+    
+});
 
 // MD5 Encoding
 var MD5 = function (string) {
@@ -554,11 +603,6 @@ var MD5 = function (string) {
         d = II(d, a, b, c, x[k + 15], S42, 0xFE2CE6E0);
         c = II(c, d, a, b, x[k + 6], S43, 0xA3014314);
         b = II(b, c, d, a, x[k + 13], S44, 0x4E0811A1);
-        a = II(a, b, c, d, x[k + 4], S41, 0xF7537E82);
-        d = II(d, a, b, c, x[k + 11], S42, 0xBD3AF235);
-        c = II(c, d, a, b, x[k + 2], S43, 0x2AD7D2BB);
-        b = II(b, c, d, a, x[k + 9], S44, 0xEB86D391);
-        a = AddUnsigned(a, AA);
         b = AddUnsigned(b, BB);
         c = AddUnsigned(c, CC);
         d = AddUnsigned(d, DD);

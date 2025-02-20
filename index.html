@@ -45,7 +45,7 @@
         // load js files from CDN if local node_modules fail
         function loadJsFromCDN(js) {
             if (js === 'waypoints.js') {
-                document.write('<script src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"><\/script>');
+                document.write('<script async src="https://cdnjs.cloudflare.com/ajax/libs/waypoints/4.0.1/jquery.waypoints.js"><\/script>');
             } else if (js === 'jquery.js') {
                 document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"><\/script>');
             }
@@ -83,16 +83,16 @@
                                 <li><a href="#eng-pics" data-key="photos">Le foto</a></li>
                                 <li class="hidden-sm hidden-xs"><a href="#video-bg" data-key="city">Un occhio alla città</a></li>
                                 <li><a href="#song" data-key="suggestions">Suggerimenti</a></li>
-                            </ul>
-                            <ul class="member-actions">
+                            
                                 <li><a href="#map" data-key="places" class="login">Luoghi</a></li>
                                 <li><a href="#rsvp" data-key="confirmations" class="btn-white btn-small">Conferme</a></li>
+                                
                                 <li>
                                     <select id="language-selector">
-                                        <option value="en">🇺🇸 English</option>
-                                        <option value="it">🇮🇹 Italiano</option>
-                                        <option value="es">🇪🇸 Español</option>
-                                        <option value="pl">PL Polski</option>
+                                      <option value="en">🇺🇸 English</option>
+                                      <option value="it">🇮🇹 Italiano</option>
+                                     <option value="es">🇪🇸 Español</option>
+                                     <option value="pl">🇵🇱 Polski</option>
                                     </select>
                                 </li>
                             </ul>
@@ -179,13 +179,13 @@
             <div class="row">
                 <div class="col-md-6 col-sm-12 col-xs-12 leftcol">
                     <div class="wp3">
-                        <p data-key="dataDaDefinire"><strong>Data da definire</strong></p>
+                        <p data-key="dataDaDefinire"><strong>Data da definire </strong></p>
 
-                        <h5 data-key="celibatoTitle">Addio al celibato Saul <span data-key="celibatoTime" class="time">Orario da Definire</span></h5>
+                        <h5 ><span data-key="celibatoTitle">Addio al celibato Saul </span> <span data-key="celibatoTime" class="time">Orario da Definire</span></h5>
                         <p data-key="celibatoDaDefinire">Ci saranno le informazioni neccessarie per l'evento nel prossimo futuro!</p>
                     </div>
                     <div class="wp5">
-                        <h5 data-key="nubilatoTitle">Addio al nubilato Dalia <span data-key="celibatoTime" class="time">Orario da Definire</span></h5>
+                        <h5><span data-key="nubilatoTitle">Addio al nubilato Dalia </span> <span data-key="celibatoTime" class="time">Orario da Definire</span></h5>
                         <p data-key="nubilatoDaDefinire">Ci saranno le informazioni neccessarie per l'evento nel prossimo futuro!</p>
                     </div>
 
@@ -195,20 +195,21 @@
                     <div class="wp4">
                         <p data-key="date"><strong>29 Gennaio</strong></p>
 
-                        <h5 data-key="prepSposaTitle">Preparativi sposa<span class="time" data-key="prepTime"> 14.30-19.45</span></h5>
+                        <h5><span data-key="prepSposaTitle"></span> <span class="time" data-key="prepTime"></span></h5>
                         <p data-key="prepSposaInfo">I preparativi della sposa e delle damigelle/famiglia si svolgerà nella
                             location indicata per ricevimento. Maggiori informazioni nel prossimo futuro.
                         </p>
                     </div>
 
                     <div class="wp6">
+                        <h5><span data-key="weddingTitle"></span> <span class="time" data-key="weddingTime"></span></h5>
                         <p data-key="weddingDesc">La cerimonia si svolgerà nella chiesa di Santa Kinga nell'orario indicato.
                             Si prega di non arrivare in anticipo, poiché la cerimonia inizierà in orario.
                         </p>
                     </div>
 
                     <div class="wp7">
-                        <h5 data-key="partyTitle">Ricevimento <span class="time" data-key="partyTime"> 22.00- alba</span></h5>
+                        <h5><span data-key="partyTitle"></span> <span class="time" data-key="partyTime"></span></h5>
                         <p data-key="partyDesc">Si mangia, si beve, si balla e si festeggia l'amore!</p>
                     </div>
                     
@@ -217,7 +218,7 @@
             <div class="row section-padding">
                 <div class="col-md-4 col-md-offset-4 text-center">
                     <a class="btn btn-accent btn-small" data-toggle="modal" data-target="#dc-modal">
-                        <i class="fa fa-barcode"></i>&nbsp;&nbsp;Dress code
+                        <i class="fa fa-barcode">&nbsp;&nbsp;Dress code</i>
                     </a>
                 </div>
             </div>
@@ -266,7 +267,8 @@
             <div class="row">
                 <div class="col-md-12 text-center">
                     <h3 data-key="instaTitle">Una foto può significare molto!</h3>
-                    <p data-key="instaDesc">Aiutaci a catturare i momenti più belli, condividi l'hashtag 
+                    <p>
+                        <span data-key="instaDesc">Aiutaci a catturare i momenti più belli, condividi l'hashtag </span>
                         <a href="https://instagram.com/explore/tags/sdWedding2026/" target="_blank">#sdWedding2026</a>
                     </p>
                 </div>
@@ -390,9 +392,9 @@
                     <div id="map-content-chiesa" class="map-content" style="display: none; padding: 15px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
                         <h5 data-key="chiesaKinga">Chiesa di Santa Kinga</h5>
                         <p>
-                            📍 <span data-key="address"><strong>Indirizzo:</strong> Daniłowicza 10, 32-020 Wieliczka, Polonia  </span>
+                            📍 <span data-key="address"><strong>Indirizzo:</strong></span><span> Daniłowicza 10, 32-020 Wieliczka, Polonia</span>
                             <br>
-                            🔗 <span data-key="website"><strong>Pagina web:</strong> <a href="https://www.minieradisalewieliczka.it/" data-key="visitWeb" target="_blank">Visita il sito</a></span>
+                            🔗 <span data-key="website"><strong>Pagina web:</strong></span> <a href="https://www.minieradisalewieliczka.it/"  target="_blank"><span data-key="visitWeb">Visita il sito</span></a>
                         </p>
                         <div class="text-center">
                             <a class="btn btn-fill btn-small"
@@ -420,9 +422,9 @@
                     <div id="map-content-location" class="map-content" style="display: none; padding: 15px; border: 1px solid #ddd; border-radius: 5px; margin-top: 10px;">
                         <h5 data-key="locationTitle">Ristorante Kopalnia Soli Wieliczka</h5>
                         <p>
-                            📍 <span data-key="address"></span><strong>Indirizzo:</strong> G.Narutowicza 1, 32-020 Wieliczka, Polonia  </span>
+                            📍 <span data-key="address"><strong>Indirizzo:</strong></span> G.Narutowicza 1, 32-020 Wieliczka, Polonia
                             <br>
-                            🔗 <span data-key="website"></span><strong>Pagina web:</strong> </span> <a href="https://hotellenart.pl/en/" target="_blank" data-key="visitWeb">Visita il sito</a> 
+                            🔗 <span data-key="website"><strong>Pagina web:</strong> </span> <a href="https://hotellenart.pl/en/" target="_blank" ><span data-key="visitWeb">Visita il sito</span> </a> 
                         </p>
                         <div class="text-center">
                             <a class="btn btn-fill btn-small"
@@ -435,27 +437,6 @@
             </div>
         </div>
     
-        <script>
-            document.addEventListener("DOMContentLoaded", function () {
-                function toggleInfo(buttonId, contentId) {
-                    var btn = document.getElementById(buttonId);
-                    var content = document.getElementById(contentId);
-    
-                    btn.addEventListener("click", function () {
-                        if (content.style.display === "none" || content.style.display === "") {
-                            content.style.display = "block";
-                            btn.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Nascondi Info';
-                        } else {
-                            content.style.display = "none";
-                            btn.innerHTML = '<i class="fa fa-info-circle"></i>&nbsp;&nbsp; Mostra Info';
-                        }
-                    });
-                }
-    
-                toggleInfo("btn-show-content-chiesa", "map-content-chiesa");
-                toggleInfo("btn-show-content-location", "map-content-location");
-            });
-        </script>
     </section>
 
     <!--SONG-->
@@ -469,7 +450,7 @@
                         </button>
                         <div class="section-padding">
                             <h3 data-key="thank">Grazie!</h3>
-                            <p data-key="intro">We are very happy that you gave us an idea to have fun together.</p>
+                            <p data-key="thankDesc"></p>
                         </div>
                     </div>
                 </div><!-- /.modal-content -->
@@ -485,7 +466,7 @@
                         <div class="row">
                             <div class="col-md-6 col-sm-6">
                                 <div class="form-input-group">
-                                    <i class="fa fa-envelope"></i><input id="title" name="title" class="" placeholder="Titolo"  required>
+                                    <i class="fa fa-envelope"></i><input id="title" name="title" class="" placeholder="Titolo" data-key="title" required>
                                 </div>
                             </div>
                             <div class="col-md-6 col-sm-6">
@@ -600,20 +581,6 @@
     <script src="js/vendor/ouical.js"></script>
     <script src="js/scripts.min.js"></script>
     <script src="js/language-switcher.js"></script>
-    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBiYx6OS4pyjFPSfyhP8Qo6UvRKOUvaa0k&&libraries=marker&load=async" async defer></script>
-    <script>
-        window.onload = function() {
-            initMaps(); // Call the initMaps function after the API is loaded
-            (function(d, script) {
-      script = d.createElement('script');
-      script.type = 'text/javascript';
-      script.async = true;
-      script.src = 'https://w.app/widget-v1/D2kSFv.js';
-      d.getElementsByTagName('head')[0].appendChild(script);
-      }(document));}
- 
-        
-    </script>
     <script>
         if (typeof translations === 'undefined') {
     const translations = {
@@ -675,14 +642,16 @@ document.addEventListener("DOMContentLoaded", function () {
     })();
 });
 
-// Corretto caricamento di Google Maps
-document.addEventListener("DOMContentLoaded", function () {
-    let script = document.createElement("script");
-    script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBiYx6OS4pyjFPSfyhP8Qo6UvRKOUvaa0k&libraries=marker";
-    script.async = true;
-    script.defer = true;
-    document.head.appendChild(script);
-});
+// Load Google Maps API with callback
+let script = document.createElement("script");
+script.src = "https://maps.googleapis.com/maps/api/js?key=AIzaSyBiYx6OS4pyjFPSfyhP8Qo6UvRKOUvaa0k&libraries=marker&callback=initMaps";
+script.async = true;
+script.defer = true;
+script.crossOrigin = "anonymous";
+document.head.appendChild(script);
+
+
+
     </script>
     
 
